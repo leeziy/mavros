@@ -12,9 +12,11 @@
  */
 
 #include <mavros/mavros.h>
+#include <pthread.h>
 
 int main(int argc, char *argv[])
 {
+	pthread_setname_np(pthread_self(), "mavros_ros");
 	ros::init(argc, argv, "mavros");
 
 	mavros::MavRos mavros;
@@ -22,4 +24,3 @@ int main(int argc, char *argv[])
 
 	return 0;
 }
-
