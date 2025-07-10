@@ -237,7 +237,7 @@ void MavRos::spin()
 		});
 	remote_endpoint_timer.start();
 	
-  pthread_setname_np(pthread_self(), "mavros_spin");
+	pthread_setname_np(pthread_self(), "mavros_spin");
 	spinner.start();
 	pthread_setname_np(pthread_self(), "mavros_main");
 	ros::waitForShutdown();
