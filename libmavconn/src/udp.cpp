@@ -138,7 +138,7 @@ void MAVConnUDP::connect(
 
 	// run io_service for async io
 	io_thread = std::thread([this] () {
-				utils::set_this_thread_name("mudp%zu", conn_id);
+				utils::set_this_thread_name("mavros_udp_%zu", conn_id);
 				io_service.run();
 			});
 }
