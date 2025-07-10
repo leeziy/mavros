@@ -15,6 +15,7 @@
 #include <mavros/mavros.h>
 #include <mavros/utils.h>
 #include <fnmatch.h>
+#include <pthread.h>
 
 // MAVLINK_VERSION string
 #include <mavlink/config.h>
@@ -39,6 +40,7 @@ MavRos::MavRos() :
 	plugin_loader("mavros", "mavros::plugin::PluginBase"),
 	plugin_subscriptions{}
 {
+
 	std::string fcu_url, gcs_url;
 	std::string fcu_protocol;
 	int system_id, component_id;
@@ -234,8 +236,10 @@ void MavRos::spin()
 			}
 		});
 	remote_endpoint_timer.start();
-
+	
+  pthread_setname_np(pthread_self(), "mavros_spin");
 	spinner.start();
+	pthread_setname_np(pthread_self(), "mavros_main");
 	ros::waitForShutdown();
 
 	ROS_INFO("Stopping mavros...");
